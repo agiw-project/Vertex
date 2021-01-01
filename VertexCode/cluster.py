@@ -1,7 +1,7 @@
 from merge_sort import mergeSort
 
 
-THRESHOLD = 1
+THRESHOLD = 2
 
 #Find all the possible couples
 def get_all_possible_couples(number):
@@ -97,7 +97,7 @@ def decrementCounts(hashTable):
         max_shingle_vector = None
         #iterate over the keys and finds the cover with the maximum counts
         for sv in hashTable.keys():
-            if is_cover(esv,sv) and esv != sv and max_count < hashTable[sv]:
+            if is_cover(esv,sv) and max_count < hashTable[sv]:
                 max_count = hashTable[sv]
                 max_shingle_vector = sv
 
@@ -154,6 +154,6 @@ def cluster(pages):
     for key in clusters.keys():
         group = clusters[key]
         if len(group) != 0:
-            page_clusters.append(group)
+            page_clusters.append((group))
 
     return page_clusters

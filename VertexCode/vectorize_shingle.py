@@ -1,4 +1,5 @@
 from hash_generator import generate_hash_function
+from hash_generator import generate_hash_function2
 
 """
 It finds the minimum hash among 

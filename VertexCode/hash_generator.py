@@ -9,3 +9,12 @@ def generate_hash_function(n):
     return output[:8]
 
   return myhash
+
+def generate_hash_function2(n):
+  def myhash(x):
+    output = hash(x)
+    for i in range(n):
+      output = hash(output)
+    return output
+
+  return myhash

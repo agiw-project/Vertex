@@ -1,12 +1,14 @@
 from vectorize_shingle import shingles_to_vectors
 from bs4 import BeautifulSoup
 
+SHINGLE_SIZE = 10
+
 class Page:
     def __init__(self, pathToFile, directory):
         #read the html file
         self.directory = directory
         file =  open(pathToFile,"r",encoding="utf8")
-        self.name = pathToFile.replace("pages\\","").replace(directory + "\\", "").replace(".html","")
+        self.name = pathToFile.replace("pages\\","").replace(directory + "\\", "").replace("The Movie Database (TMDb).html","")
         content = file.read()
         file.close()
         #extract the tags ordered
@@ -29,7 +31,7 @@ class Page:
         return [tag.name for tag in soup.find_all()]
 
     def find_shingles(self):
-        iterations = len(self.tags)-10+1
+        iterations = len(self.tags)- SHINGLE_SIZE+1
         if iterations <= 0:
             iterations = 1
 
@@ -38,7 +40,7 @@ class Page:
         for i in range(iterations):
             shingle = []
             current_step = 0
-            while current_step < 10:
+            while current_step < SHINGLE_SIZE:
                 shingle.append(self.tags[start_index + current_step])
                 current_step += 1
             shingles.append(shingle)
