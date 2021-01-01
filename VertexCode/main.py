@@ -1,39 +1,27 @@
 from page import Page
 from cluster import cluster
-from os import walk
-from zipfile import ZipFile
 import os
-from os.path import basename
-
-def zipFiles(dirName):
-   # create a ZipFile object
-   with ZipFile('zippedPages/pages.zip', 'w') as zipObj:
-      # Iterate over all the files in directory
-      for folderName, subfolders, filenames in os.walk(dirName):
-         for filename in filenames:
-            # create complete filepath of file in directory
-            filePath = os.path.join(folderName, filename)
-            # Add file to zip
-            zipObj.write(filePath, basename(filePath))
-
-
-def unzipFiles(path_to_file):
-   with ZipFile(path_to_file, 'r') as zip_ref:
-      zip_ref.extractall("pages")
-
+import re
 
 
 def test_clustering():
-   fileNames = []
-   for (dirpath, dirnames, filenames) in walk("pages/"):
-      fileNames.extend(filenames)
+   filePaths = []
+   for root, dirs, files in os.walk("pages"):
+      for name in files:
+         filePaths.append(os.path.join(root, name))
+
 
    pages = []
-   for name in fileNames:
-      p = Page("pages/" + name)
-      pages.append(p)
+   for path in filePaths:
+      tokens = re.split("\\\\", path)
+      page = Page(path, tokens[1])
+      pages.append(page)
 
-   print(cluster(pages))
+   for group in cluster(pages):
+      print(group)
+
+
+
 
 
 

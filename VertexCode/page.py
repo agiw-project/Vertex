@@ -2,14 +2,15 @@ from vectorize_shingle import shingles_to_vectors
 from bs4 import BeautifulSoup
 
 class Page:
-    def __init__(self, pathToFile):
+    def __init__(self, pathToFile, directory):
         #read the html file
+        self.directory = directory
         file =  open(pathToFile,"r",encoding="utf8")
-        self.name = pathToFile.replace("pages/","").replace(".html","")
-        self.content = file.read()
+        self.name = pathToFile.replace("pages\\","").replace(directory + "\\", "").replace(".html","")
+        content = file.read()
         file.close()
         #extract the tags ordered
-        self.tags = self.extract_tags()
+        self.tags = self.extract_tags(content)
         #each contiguous sequence of 10 tags within the page
         self.shingles = self.find_shingles()
         #the hash vector of the shingles
@@ -22,8 +23,8 @@ class Page:
         return "Page({0})".format(self.name)
 
 
-    def extract_tags(self):
-        soup = BeautifulSoup(self.content, "html.parser")
+    def extract_tags(self, content):
+        soup = BeautifulSoup(content, "html.parser")
         #the list of tags within the page ordered
         return [tag.name for tag in soup.find_all()]
 
