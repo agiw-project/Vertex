@@ -12,11 +12,11 @@ class Page:
         content = file.read()
         file.close()
         #extract the tags ordered
-        self.tags = self.extract_tags(content)
+        tags = self.extract_tags(content)
         #each contiguous sequence of 10 tags within the page
-        self.shingles = self.find_shingles()
+        shingles = self.find_shingles(tags)
         #the hash vector of the shingles
-        self.shingle_vector =  tuple(shingles_to_vectors(self.shingles))
+        self.shingle_vector =  tuple(shingles_to_vectors(shingles))
 
     def __repr__(self):
         return "Page({0})".format(self.name)
@@ -30,8 +30,8 @@ class Page:
         #the list of tags within the page ordered
         return [tag.name for tag in soup.find_all()]
 
-    def find_shingles(self):
-        iterations = len(self.tags)- SHINGLE_SIZE+1
+    def find_shingles(self, tags):
+        iterations = len(tags)- SHINGLE_SIZE+1
         if iterations <= 0:
             iterations = 1
 
@@ -41,7 +41,7 @@ class Page:
             shingle = []
             current_step = 0
             while current_step < SHINGLE_SIZE:
-                shingle.append(self.tags[start_index + current_step])
+                shingle.append(tags[start_index + current_step])
                 current_step += 1
             shingles.append(shingle)
             start_index += 1
