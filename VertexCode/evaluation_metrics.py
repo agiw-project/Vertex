@@ -34,7 +34,7 @@ def difference(set1, set2):
 """
 Computes the f1score for pair clustering 
 """
-def f1score(true_clusters, actual_clusters):
+def f1score_pair_clustering(true_clusters, actual_clusters):
     couples1 = cluster_to_pair(true_clusters)
     couples2 = cluster_to_pair(actual_clusters)
     inter = len(intersection(couples1,couples2))

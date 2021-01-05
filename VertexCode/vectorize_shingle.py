@@ -1,6 +1,6 @@
 from hash_generator import generate_hash_function
-from hash_generator import generate_hash_function2
-
+#from hash_generator import generate_hash_function2
+from hash_generator import generate_hash_function_pearson_hash
 """
 It finds the minimum hash among 
 the shingles passed as parameters

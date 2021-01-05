@@ -1,9 +1,9 @@
 from page import Page
-from cluster import cluster
+from clustering import cluster
 import os
 import time
 import re
-from evaluation_metrics import f1score
+from evaluation_metrics import f1score_pair_clustering
 
 
 def test_clustering():
@@ -53,7 +53,7 @@ def test_clustering():
 
    true_clusters = list(groups.values())
 
-   f1 = f1score(true_clusters,computed_clusters)
+   f1 = f1score_pair_clustering(true_clusters, computed_clusters)
 
    print("f1-score:{}\n".format(f1))
 
