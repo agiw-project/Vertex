@@ -24,7 +24,7 @@ class Page:
     def __str__(self):
         return "Page({0})".format(self.name)
 
-
+    #prova
     def extract_tags(self, content):
         soup = BeautifulSoup(content, "html.parser")
         #the list of tags within the page ordered
